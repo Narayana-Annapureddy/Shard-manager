@@ -230,7 +230,7 @@ def add_servers():
 
         for i in new_server_ids:
             try:
-                result = subprocess.run(["python3","Helper.py",str(i),"sharding_net1","mysqlserver","add"],stdout=subprocess.PIPE, text=True, check=True)
+                result = subprocess.run(["python3","Helper.py",str(i),"shard-manager_net1","mysqlserver","add"],stdout=subprocess.PIPE, text=True, check=True)
                 
                 # add the server to the list_of_servers
                 list_of_servers.append(str(i))
@@ -615,7 +615,7 @@ def pathRoute1(path):
             obj.N+=1
             server_name = "Sa1wasd"+str(obj.N)
             obj.dic[server_name] = obj.N
-            result = subprocess.run(["python","Helper.py",server_name,"sharding_net1","flaskserver1","add"],stdout=subprocess.PIPE, text=True, check=True)
+            result = subprocess.run(["python","Helper.py",server_name,"shard-manager_net1","flaskserver1","add"],stdout=subprocess.PIPE, text=True, check=True)
             obj.add_server(obj.dic[server_name])
             continue
         
@@ -637,7 +637,7 @@ def pathRoute1(path):
             obj.N+=1
             server_name = "Sa1wasd"+str(obj.N)
             obj.dic[server_name] = obj.N
-            result = subprocess.run(["python3","Helper.py",server_name,"sharding_net1","mysqlserver","add"],stdout=subprocess.PIPE, text=True, check=True)
+            result = subprocess.run(["python3","Helper.py",server_name,"shard-manager_net1","mysqlserver","add"],stdout=subprocess.PIPE, text=True, check=True)
             obj.add_server(obj.dic[server_name])
             
 
@@ -709,9 +709,9 @@ def errorPage(k):
 
 if __name__ == "__main__":
     # 6 replicas of server are maintained
-    for i in ["Server0","Server1","Server2","Server3","Server4","Server5", 'Server6']:
+    for i in ["Server0","Server1"]:#,"Server2","Server3","Server4","Server5", 'Server6']:
         try:
-            result = subprocess.run(["python3","Helper.py",str(i),"sharding_net1","mysqlserver","add"],stdout=subprocess.PIPE, text=True, check=True)
+            result = subprocess.run(["python3","Helper.py",str(i),"shard-manager_net1","mysqlserver","add"],stdout=subprocess.PIPE, text=True, check=True)
         except Exception as e:
             # pass
             print("error",e)
@@ -719,7 +719,7 @@ if __name__ == "__main__":
 
 
     # Create a thread to run the heartbeat function
-    time.sleep(60)
-    heartbeat_thread = threading.Thread(target=heartbeat )
-    heartbeat_thread.start()
+    # time.sleep(60)
+    # heartbeat_thread = threading.Thread(target=heartbeat )
+    # heartbeat_thread.start()
     app.run(host = "0.0.0.0",debug = True)

@@ -24,6 +24,8 @@ services:
       - "5001:5000" # Exposing port to host
     # depends_on:
     #   - mysql
+    volumes:
+      - /data:
     networks:
       net1:
         aliases:
