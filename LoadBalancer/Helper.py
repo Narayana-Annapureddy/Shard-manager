@@ -1,9 +1,21 @@
 import subprocess
 import sys
 import docker 
+
+
+def createVolumes():
+    cmd = ["docker","volume","create","my_data"]
+    try:
+        result = subprocess.run(cmd)
+        print("Return Code:", result.returncode)
+        if(result.returncode!=0):
+            print("Container not created")
+       
+    except Exception as e:
+        print("Container not created")
 def main1(params):
    
-    cmd = ["docker", "run", "--name", params[1],"--network", params[2], "--network-alias", params[1], "-d",params[3]]
+    cmd = ["docker", "run", "--name", params[1],"--network", params[2], "--network-alias", params[1], "-d","-v","my_data:/data",params[3]]
     
     try:
         result = subprocess.run(cmd)
